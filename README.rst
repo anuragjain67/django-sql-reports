@@ -41,5 +41,4 @@ Todo:
 9. Add the celery features to execute report in backend.
 10. Add the send email feature.
 11. Add this DockerFile for faster demo. 
-
-
+12. Add Playground feature for testing reports.
