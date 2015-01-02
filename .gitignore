@@ -1,0 +1,15 @@
+# Ignore generated files
+*.pyc
+*.pyo
+*.orig
+src/*.egg-info
+*~
+.settings/
+.installed.cfg
+
+# Ignore other specific files
+.coverage
+.project
+.pydevproject
+.pydevproject.bak
+.jshintrc

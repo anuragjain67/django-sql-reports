@@ -1,2 +1,0 @@
-django-sql-reports
-==================
