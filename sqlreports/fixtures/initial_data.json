@@ -1,0 +1,51 @@
+[
+{
+    "pk": 1, 
+    "model": "sqlreports.sqlreport", 
+    "fields": {
+        "user_allowed": false, 
+        "query": "select username, email from auth_user", 
+        "name": "GET ALL USERS", 
+        "description": "Get all users"
+    }
+},
+{
+    "pk": 2, 
+    "model": "sqlreports.sqlreport", 
+    "fields": {
+        "user_allowed": false, 
+        "query": "select * from auth_user where id={{USER_ID}}", 
+        "name": "Demo with Params", 
+        "description": "Get user for given user id"
+    }
+},
+{
+    "pk": 1, 
+    "model": "sqlreports.sqlreportparam", 
+    "fields": {
+        "report": 2, 
+        "help_text": "Put user id", 
+        "param_key": "USER_ID", 
+        "display_name": "user id", 
+        "choices": "1,2,3"
+    }
+},
+{
+    "pk": 1, 
+    "model": "auth.user", 
+    "fields": {
+        "username": "anurag", 
+        "first_name": "", 
+        "last_name": "", 
+        "is_active": true, 
+        "is_superuser": true, 
+        "is_staff": true, 
+        "last_login": "2015-01-01T11:27:19.012Z", 
+        "groups": [], 
+        "user_permissions": [], 
+        "password": "pbkdf2_sha256$12000$dKW02wvikZv2$z33Hh4jXgjKAS6x5vt++8xsNF8FQUC9oku8fBahG7sc=", 
+        "email": "anurag.jain@hashedin.com", 
+        "date_joined": "2015-01-01T11:26:34.399Z"
+    }
+}
+]

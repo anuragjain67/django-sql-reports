@@ -1,0 +1,7 @@
+recursive-include docs *
+include AUTHORS
+include LICENSE
+include README.rst
+recursive-include sqlreports/static *
+recursive-include sqlreports/templates *
+recursive-exclude test_app *
