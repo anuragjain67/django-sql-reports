@@ -32,13 +32,13 @@ Todo:
        But later on we will only have read only connection.
 
 2. Add the pagination feature.
-3. Add hooks to filter out reports.
+3. Add hooks:
+        1. Filter out the reports. 
+        2. Own format out. Add example for JSON format output.
 4. Add more test cases and add travis. 
 5. Add proper docs with screenshots.
 6. Add south support for migration purpose.
 7. Reporting Chart.
-8. Provide JSON Only.
-9. Add the celery features to execute report in backend.
-10. Add the send email feature.
-11. Add this DockerFile for faster demo. 
-12. Add Playground feature for testing reports.
+8. Add the celery features to execute report in backend and add send email feature.
+9. Add this DockerFile for faster demo. 
+10. Add Playground feature for testing reports.
