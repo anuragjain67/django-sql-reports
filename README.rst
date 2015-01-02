@@ -25,7 +25,7 @@ Quick start
 
 
 Todo:
-
+-----------
 1. Use only read connection:
 
        Right now it assumes that only super user run the reports.
