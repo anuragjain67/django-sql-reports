@@ -6,7 +6,9 @@ from django.template.context import RequestContext
 
 from sqlreports import api, utils
 from sqlreports.models import SQLReportParam, SQLReport
-from django.core.exceptions import PermissionDenied
+
+from sqlreports.api import schema_info
+from sqlreports.utils import validate_report_access
 
 
 @login_required
@@ -32,8 +34,8 @@ def report(request, report_id):
     For given sqlreports id and params
     it will generate the sqlreports tables
     """
+    validate_report_access(request.user, report)
     report = SQLReport.objects.get(pk=report_id)
-    _validate_report_access(request.user, report)
     is_csv = request.GET.get("is_csv", False)
     is_html = request.GET.get("is_html", False)
     param_dict, params = _get_param_dict(request, report_id)
@@ -78,20 +80,8 @@ def _get_param_dict(request, report_id):
     return (param_dict, params)
 
 
-def _validate_report_access(user, report):
-    '''Validates if running a sqlreports is allowed or not'''
-    # TODO: Instead of this provide hook.
-
-    if user.is_superuser:
-        # Super users are allowed everything
-        return True
-
-    if not user.is_staff:
-        # Non Staff are never allowed access to sqlreports
-        raise PermissionDenied("SQLReport access is not allowed.")
-
-    # Allowed only if sqlreports is designated as a non-super user allowed
-    if not report.user_allowed:
-        raise PermissionDenied("SQLReport access is not allowed.")
-
-    return True
+@login_required
+def schema(request):
+    """Need to include permissions"""
+    return render_to_response('sqlreports/schema.html', 
+                              {'schema': schema_info()})

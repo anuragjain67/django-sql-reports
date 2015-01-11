@@ -42,3 +42,8 @@ Todo:
 8. Add the celery features to execute report in backend and add send email feature.
 9. Add this DockerFile for faster demo. 
 10. Add Playground feature for testing reports.
+
+
+Courtesy:
+-----------
+Added schema view feature from [django-sql-explorer](https://github.com/epantry/django-sql-explorer)

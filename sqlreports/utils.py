@@ -1,5 +1,6 @@
 import csv
 from django.http import HttpResponse
+from django.core.exceptions import PermissionDenied
 
 
 def download_csv_python_obj(headers, data_objs, file_name="sqlreports.csv"):
@@ -18,3 +19,22 @@ def download_csv_python_obj(headers, data_objs, file_name="sqlreports.csv"):
     return response
 
 download_csv_python_obj.short_description = "Download selected as csv"
+
+
+def validate_report_access(user, report):
+    '''Validates if running a sqlreports is allowed or not'''
+    # TODO: Instead of this provide hook.
+
+    if user.is_superuser:
+        # Super users are allowed everything
+        return True
+
+    if not user.is_staff:
+        # Non Staff are never allowed access to sqlreports
+        raise PermissionDenied("SQLReport access is not allowed.")
+
+    # Allowed only if sqlreports is designated as a non-super user allowed
+    if not report.user_allowed:
+        raise PermissionDenied("SQLReport access is not allowed.")
+
+    return True
