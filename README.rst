@@ -46,4 +46,5 @@ Todo:
 
 Courtesy:
 -----------
-Added schema view feature from [django-sql-explorer](https://github.com/epantry/django-sql-explorer)
+Added schema view feature from `django-sql-explorer <https://github.com/epantry/django-sql-explorer>`_
+
