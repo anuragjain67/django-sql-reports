@@ -1,4 +1,3 @@
-=====
 Reports
 =====
 Write SQL, it will generate the report.
@@ -9,28 +8,30 @@ Quick start
 
 1. Add "reports" to your INSTALLED_APPS setting like this::
 
-
         INSTALLED_APPS = (
                 ...
                 'sqlreports',
             )
 
-
 2. Include the polls URLconf in your project urls.py like this::
 
     url(r'^reporting-service/', include('sqlreports.urls')),
 
-
 3. Run `python manage.py migrate` to create the reports models.
 
+Run Test APP
+-----------
+1. git clone https://github.com/anuragjain67/django-sql-reports.git
+2. python test_app/manage.py migrate
+3. python test_app/manage.py loaddata test_app/fixtures/data.json
+4. python test_app/manage.py test
+5. python test_app/manage.py runserver
 
 Todo:
 -----------
 1. Use only read connection:
-
        Right now it assumes that only super user run the reports.
        But later on we will only have read only connection.
-
 2. Add the pagination feature.
 3. Add hooks:
         1. Filter out the reports. 
@@ -46,5 +47,6 @@ Todo:
 
 Courtesy:
 -----------
-Added schema view feature from `django-sql-explorer <https://github.com/epantry/django-sql-explorer>`_
+1. Added schema view feature from [django-sql-explorer](https://github.com/epantry/django-sql-explorer)
+2. Took idea of Report Generator and Report Formatter from [django-oscar](https://django-oscar.readthedocs.org)
 
