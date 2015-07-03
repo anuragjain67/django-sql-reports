@@ -28,6 +28,10 @@ Run Test APP
 5. python test_app/manage.py test
 6. python test_app/manage.py runserver
 
+For superuser
+username = anurag
+password = anurag
+
 Todo:
 -----------
 1. Use only read connection:
