@@ -22,10 +22,11 @@ Quick start
 Run Test APP
 -----------
 1. git clone https://github.com/anuragjain67/django-sql-reports.git
-2. python test_app/manage.py migrate
-3. python test_app/manage.py loaddata test_app/fixtures/data.json
-4. python test_app/manage.py test
-5. python test_app/manage.py runserver
+2. python setup.py develop
+3. python test_app/manage.py migrate
+4. python test_app/manage.py loaddata test_app/fixtures/data.json
+5. python test_app/manage.py test
+6. python test_app/manage.py runserver
 
 Todo:
 -----------
