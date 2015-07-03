@@ -1,13 +1,13 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
-from django.views.generic.list import ListView
 from django.utils.decorators import method_decorator
+from django.http.response import HttpResponseForbidden
+from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
 
 from sqlreports.models import SQLReportParam, SQLReport
-from django.views.generic.detail import DetailView
 from sqlreports.core import ReportGenerator
-from django.http.response import HttpResponseForbidden
 from sqlreports.utils import schema_info
 
 

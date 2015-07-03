@@ -1,8 +1,9 @@
-from django.core.exceptions import ImproperlyConfigured
 import csv
-from django.db import models
-from sqlreports import app_settings
+
+from django.core.exceptions import ImproperlyConfigured
 from django.db.models.loading import get_apps, get_models
+
+from sqlreports import app_settings
 
 
 class CSVWriter(object):

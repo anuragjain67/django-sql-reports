@@ -1,7 +1,7 @@
 from django.test import TestCase
+from django.core.urlresolvers import reverse
 
 from sqlreports.models import SQLReport, SQLReportParam
-from django.core.urlresolvers import reverse
 
 FIXTURES = ['data.json']
 
