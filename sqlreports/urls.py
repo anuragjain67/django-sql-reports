@@ -1,8 +1,14 @@
-from django.conf.urls import patterns, url
-from sqlreports.views import reports, report, schema
+from django.conf.urls import url
+from sqlreports.views import ReportList, ReportView, ReportSchema
 
-urlpatterns = patterns('',
-    url(r'sqlreports/$', reports, name='report_list'),
-    url(r'sqlreports/(?P<report_id>\d+)/$', report, name='get_report'),
-    url(r'sqlreports/schema-info/$', schema, name='get_schema'),
-)
+urlpatterns = [
+    url(r'sqlreports/$',
+        ReportList.as_view(),
+        name='sqlreports-report_list'
+        ),
+    url(r'sqlreports/(?P<report_id>\d+)/$',
+        ReportView.as_view(), name='sqlreports-get_report'),
+
+    url(r'sqlreports/schema/$',
+        ReportSchema.as_view(), name='sqlreports-schema'),
+]

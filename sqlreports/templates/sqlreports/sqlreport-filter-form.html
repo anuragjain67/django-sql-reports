@@ -1,4 +1,4 @@
-<form method="GET" action="/reporting-service/sqlreports/{{report.id}}/">
+<form method="GET" action="{% url 'sqlreports-get_report' report.id%}">
     <br/>
     {% for param in params %}
     <div class="row">

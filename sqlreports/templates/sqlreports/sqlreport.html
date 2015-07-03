@@ -4,7 +4,7 @@
 
 <div class="container">
   <div class="row">
-    <h3><a href="{% url 'report_list'%}">All Reports</a> &gt;&gt; {{report.name}}</h3>
+    <h3><a href="{% url 'sqlreports-report_list'%}">All Reports</a> &gt;&gt; {{report.name}}</h3>
      <p>{{report.description}}</p>
     <hr/>
   {% include "sqlreports/sqlreport-filter-form.html" %}

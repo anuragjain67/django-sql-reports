@@ -1,40 +1,68 @@
+from django.core.exceptions import ImproperlyConfigured
 import csv
-from django.http import HttpResponse
-from django.core.exceptions import PermissionDenied
+from django.db import models
+from sqlreports import app_settings
+from django.db.models.loading import get_apps, get_models
 
 
-def download_csv_python_obj(headers, data_objs, file_name="sqlreports.csv"):
-    """For given python objects it will return the csv file"""
-    response = HttpResponse(mimetype='text/csv')
-    # force download.
-    response['Content-Disposition'] = 'attachment;filename=%s' % file_name
-    # the csv writer
-    writer = csv.writer(response)
-    field_names = [header for header in headers]
-    # Write a first row with header information
-    writer.writerow(field_names)
-    # Write data rows
-    for data_obj in data_objs:
-        writer.writerow([data_obj[field] for field in field_names])
-    return response
+class CSVWriter(object):
+    def __init__(self, filename=None, open_file=None):
+        if filename is open_file is None:
+            raise ImproperlyConfigured(
+                "You need to specify either a filename or an open file")
+        self.filename = filename
+        self.f = open_file
+        self.writer = None
 
-download_csv_python_obj.short_description = "Download selected as csv"
+    def writerow(self, row):
+        if self.writer is None:
+            self.writer = csv.writer(self.f)
+        self.writer.writerow(list(row))
+
+    def writerows(self, rows):
+        for row in rows:
+            self.writerow(row)
 
 
-def validate_report_access(user, report):
-    '''Validates if running a sqlreports is allowed or not'''
-    # TODO: Instead of this provide hook.
+def schema_info():
+    """
+    Construct schema information via introspection of the django models in the database.
 
-    if user.is_superuser:
-        # Super users are allowed everything
-        return True
+    :return: Schema information of the following form, sorted by db_table_name.
+        [
+            ("package.name -> ModelClass", "db_table_name",
+                [
+                    ("db_column_name", "DjangoFieldType"),
+                    (...),
+                ]
+            )
+        ]
 
-    if not user.is_staff:
-        # Non Staff are never allowed access to sqlreports
-        raise PermissionDenied("SQLReport access is not allowed.")
+    """
 
-    # Allowed only if sqlreports is designated as a non-super user allowed
-    if not report.user_allowed:
-        raise PermissionDenied("SQLReport access is not allowed.")
+    ret = []
+    apps = [a for a in get_apps() if a.__package__ not in app_settings.EXCLUDE_APPS]
+    print apps
+    for app in apps:
+        for model in get_models(app):
+            friendly_model = "%s -> %s" % (app.__package__, model._meta.object_name)
+            ret.append((
+                          friendly_model,
+                          model._meta.db_table,
+                          [_format_field(f) for f in model._meta.fields]
+                      ))
 
-    return True
+            # Do the same thing for many_to_many fields.
+            # These don't show up in the field list of the model
+            # because they are stored as separate "through"
+            # relations and have their own tables
+            ret += [(
+                       friendly_model,
+                       m2m.rel.through._meta.db_table,
+                       [_format_field(f) for f in m2m.rel.through._meta.fields]
+                    ) for m2m in model._meta.many_to_many]
+    return sorted(ret, key=lambda t: t[1])
+
+
+def _format_field(field):
+    return (field.get_attname_column()[1], field.get_internal_type())
