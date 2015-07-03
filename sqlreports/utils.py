@@ -42,7 +42,6 @@ def schema_info():
 
     ret = []
     apps = [a for a in get_apps() if a.__package__ not in app_settings.EXCLUDE_APPS]
-    print apps
     for app in apps:
         for model in get_models(app):
             friendly_model = "%s -> %s" % (app.__package__, model._meta.object_name)
