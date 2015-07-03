@@ -1,8 +1,9 @@
 from django.test import TestCase
 
 from sqlreports.models import SQLReport, SQLReportParam
+from django.core.urlresolvers import reverse
 
-FIXTURES = ['initial_data']
+FIXTURES = ['data.json']
 
 
 class BaseTestCase(TestCase):
@@ -24,11 +25,12 @@ class TestReports(BaseTestCase):
         Initial setup of Test cases
         '''
         super(TestReports, self).setUp()
-        self.user = self.login(username="anurag", password="password")
+        self.login(username="anurag", password="anurag")
 
     def load_report(self):
         """ Hardcode sql for auth user"""
-        r = SQLReport(name="GENERAL", query="SELECT id, username from auth_user where id='{{USER_ID}}'")
+        r = SQLReport(name="GENERAL",
+                      query="SELECT id, username from auth_user where id='{{USER_ID}}'")
         r.save()
         rp = SQLReportParam(report=r, param_key="USER_ID")
         rp.save()
@@ -38,12 +40,12 @@ class TestReports(BaseTestCase):
         '''test case for basic sqlreports'''
         report_obj = self.load_report()
         data = {"USER_ID": 1, "is_html": "yes"}
-        response = self.client.get('/sqlreports/{0}/'.format(report_obj.id),
-                                   data=data)
+        response = self.client.get(
+                        reverse('sqlreports-get_report',
+                                kwargs={'report_id': report_obj.id}),
+                        data=data
+                    )
         self.assertIn("id", response.context["headers"])
         self.assertIn("username", response.context["headers"])
         self.assertEqual([{"id":1, "username":"anurag"}],
                          response.context["report_data"])
-
-#     def tearDown(self):
-#         self.user = self.logout()
