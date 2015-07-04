@@ -2,6 +2,7 @@ import csv
 
 from django.core.exceptions import ImproperlyConfigured
 from django.db.models.loading import get_apps, get_models
+from django.db import connections, connection
 
 from sqlreports import app_settings
 
@@ -42,7 +43,7 @@ def schema_info():
     """
 
     ret = []
-    apps = [a for a in get_apps() if a.__package__ not in app_settings.EXCLUDE_APPS]
+    apps = [a for a in get_apps() if a.__package__ not in app_settings.SQLREPORTS_EXCLUDE_APPS]
     for app in apps:
         for model in get_models(app):
             friendly_model = "%s -> %s" % (app.__package__, model._meta.object_name)
@@ -66,3 +67,10 @@ def schema_info():
 
 def _format_field(field):
     return (field.get_attname_column()[1], field.get_internal_type())
+
+
+def get_db_connection():
+    if app_settings.SQLREPORTS_CONNECTION_NAME:
+        return connections[app_settings.SQLREPORTS_CONNECTION_NAME]
+    else:
+        connection

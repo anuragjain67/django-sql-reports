@@ -1,11 +1,10 @@
 from collections import OrderedDict
 
 from django.http import HttpResponse
-from django.db import connection
 from django.template import Context, Template
 from django.utils.html import escape
 
-from sqlreports.utils import CSVWriter
+from sqlreports.utils import CSVWriter, get_db_connection
 from sqlreports.models import SQLReport
 
 
@@ -85,7 +84,7 @@ class ReportGenerator(object):
         """ For given sqlreports id and params it return the sqlreports data"""
         # FIXME: Connection should have only read only permission
         query = self.get_report_query(report_id, params)
-        cursor = connection.cursor()
+        cursor = get_db_connection().cursor()
         cursor.execute(query)
         return dictfetchall(cursor)
 

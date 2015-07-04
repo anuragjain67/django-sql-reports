@@ -2,7 +2,6 @@ Reports
 =====
 Write SQL, it will generate the report.
 
-
 Quick start
 -----------
 
@@ -27,28 +26,27 @@ Run Test APP
 4. python test_app/manage.py loaddata test_app/fixtures/data.json
 5. python test_app/manage.py test
 6. python test_app/manage.py runserver
+    > username = anurag, password = anurag
 
-For superuser
-username = anurag
-password = anurag
+Security:
+-----------
+Its recommended to use only readonly connection for this app.
+Specify SQLREPORTS_CONNECTION_NAME in your settings.
 
 Todo:
 -----------
-1. Use only read connection:
-       Right now it assumes that only super user run the reports.
-       But later on we will only have read only connection.
-2. Add the pagination feature.
-3. Add hooks:
-        1. Filter out the reports. 
-        2. Own format out. Add example for JSON format output.
-4. Add more test cases and add travis. 
-5. Add proper docs with screenshots.
-6. Add south support for migration purpose.
-7. Reporting Chart.
-8. Add the celery features to execute report in backend and add send email feature.
-9. Add this DockerFile for faster demo. 
-10. Add Playground feature for testing reports.
+1. Add the pagination feature.
+2. Add Run in background feature.
+3. Add more test cases and add travis. 
+4. Add proper docs with screenshots.
+5. Reporting Chart.
+6. Add Playground feature for testing reports.
 
+Contributions:
+-----------
+* **You are welcome for contributions**
+* Give pull request I will review and merge
+* You can bring ideas as well.
 
 Courtesy:
 -----------
