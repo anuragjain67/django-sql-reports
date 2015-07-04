@@ -35,17 +35,23 @@ Specify SQLREPORTS_CONNECTION_NAME in your settings.
 
 Todo:
 -----------
+### Code Related:
 1. Add the pagination feature.
 2. Add Run in background feature.
-3. Add more test cases and add travis. 
+3. Add more test cases
 4. Add proper docs with screenshots.
 5. Reporting Chart.
 6. Add Playground feature for testing reports.
 
+### Devops Related
+1. Add travis. 
+2. Dockerfile.
+3. Add it to heroku.
+
 Contributions:
 -----------
-* **You are welcome for contributions**
-* Give pull request I will review and merge
+* **Your contributions always welcome**
+* Pick any code related todo and Give pull request
 * You can bring ideas as well.
 
 Courtesy:
